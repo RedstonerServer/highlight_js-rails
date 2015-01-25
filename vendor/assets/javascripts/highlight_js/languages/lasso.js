@@ -14,8 +14,8 @@ function(hljs) {
       'bw nbw ew new cn ncn lt lte gt gte eq neq rx nrx ft',
     built_in:
       'array date decimal duration integer map pair string tag xml null ' +
-      'bytes list queue set stack staticarray tie local var variable ' +
-      'global data self inherited',
+      'boolean bytes keyword list locale queue set stack staticarray ' +
+      'local var variable global data self inherited',
     keyword:
       'error_code error_msg error_pop error_push error_reset cache ' +
       'database_names database_schemanames database_tablenames define_tag ' +
@@ -48,7 +48,7 @@ function(hljs) {
       className: 'markup',
       end: '\\[/noprocess\\]',
       returnEnd: true,
-      contains: [ HTML_COMMENT ]
+      contains: [HTML_COMMENT]
     }
   };
   var LASSO_START = {
@@ -63,10 +63,11 @@ function(hljs) {
     hljs.C_LINE_COMMENT_MODE,
     {
       className: 'javadoc',
-      begin: '/\\*\\*!', end: '\\*/'
+      begin: '/\\*\\*!', end: '\\*/',
+      contains: [hljs.PHRASAL_WORDS_MODE]
     },
     hljs.C_BLOCK_COMMENT_MODE,
-    hljs.inherit(hljs.C_NUMBER_MODE, {begin: hljs.C_NUMBER_RE + '|-?(infinity|nan)\\b'}),
+    hljs.inherit(hljs.C_NUMBER_MODE, {begin: hljs.C_NUMBER_RE + '|(-?infinity|nan)\\b'}),
     hljs.inherit(hljs.APOS_STRING_MODE, {illegal: null}),
     hljs.inherit(hljs.QUOTE_STRING_MODE, {illegal: null}),
     {
@@ -93,8 +94,13 @@ function(hljs) {
     {
       className: 'attribute',
       variants: [
-        {begin: '(\\.\\.\\.)' + hljs.UNDERSCORE_IDENT_RE},
-        {begin: '-' + hljs.UNDERSCORE_IDENT_RE, relevance: 0}
+        {
+          begin: '-' + hljs.UNDERSCORE_IDENT_RE,
+          relevance: 0
+        },
+        {
+          begin: '(\\.\\.\\.)'
+        }
       ]
     },
     {
@@ -102,7 +108,7 @@ function(hljs) {
       variants: [
         {
           begin: '->\\s*',
-          contains: [ LASSO_DATAMEMBER ]
+          contains: [LASSO_DATAMEMBER]
         },
         {
           begin: ':=|/(?!\\w)=?|[-+*%=<>&|!?\\\\]+',
@@ -112,9 +118,9 @@ function(hljs) {
     },
     {
       className: 'built_in',
-      begin: '\\.\\.?',
+      begin: '\\.\\.?\\s*',
       relevance: 0,
-      contains: [ LASSO_DATAMEMBER ]
+      contains: [LASSO_DATAMEMBER]
     },
     {
       className: 'class',
@@ -140,7 +146,7 @@ function(hljs) {
           end: '\\[|' + LASSO_ANGLE_RE,
           returnEnd: true,
           relevance: 0,
-          contains: [ HTML_COMMENT ]
+          contains: [HTML_COMMENT]
         }
       },
       LASSO_NOPROCESS,
@@ -159,9 +165,9 @@ function(hljs) {
               relevance: 0,
               starts: {
                 className: 'markup',
-                end: LASSO_ANGLE_RE,
+                end: '\\[noprocess\\]|' + LASSO_ANGLE_RE,
                 returnEnd: true,
-                contains: [ HTML_COMMENT ]
+                contains: [HTML_COMMENT]
               }
             },
             LASSO_NOPROCESS,

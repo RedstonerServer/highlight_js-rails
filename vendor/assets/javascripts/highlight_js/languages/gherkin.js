@@ -6,6 +6,7 @@
 
 function (hljs) {
   return {
+    aliases: ['feature'],
     keywords: 'Feature Background Ability Business\ Need Scenario Scenarios Scenario\ Outline Scenario\ Template Examples Given And Then But When',
     contains: [
       {
@@ -22,7 +23,7 @@ function (hljs) {
       },
       {
         className: 'variable',
-        begin: '<', end: '>',
+        begin: '<', end: '>'
       },
       hljs.HASH_COMMENT_MODE,
       {

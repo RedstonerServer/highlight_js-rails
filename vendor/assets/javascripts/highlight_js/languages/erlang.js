@@ -2,6 +2,7 @@
 Language: Erlang
 Description: Erlang is a general-purpose functional language, with strict evaluation, single assignment, and dynamic typing.
 Author: Nikolay Zakharov <nikolay.desh@gmail.com>, Dmitry Kovega <arhibot@gmail.com>
+Category: functional
 */
 
 function(hljs) {
@@ -9,8 +10,8 @@ function(hljs) {
   var FUNCTION_NAME_RE = '(' + BASIC_ATOM_RE + ':' + BASIC_ATOM_RE + '|' + BASIC_ATOM_RE + ')';
   var ERLANG_RESERVED = {
     keyword:
-      'after and andalso|10 band begin bnot bor bsl bzr bxor case catch cond div end fun let ' +
-      'not of orelse|10 query receive rem try when xor',
+      'after and andalso|10 band begin bnot bor bsl bzr bxor case catch cond div end fun if ' +
+      'let not of orelse|10 query receive rem try when xor',
     literal:
       'false true'
   };

@@ -77,10 +77,12 @@
 }
 
 .hljs {
-  display: inline-block;
+  display: block;
+  overflow-x: auto;
   background: #fbebd4;
   color: #84613d;
   padding: 0.5em;
+  -webkit-text-size-adjust: none;
 }
 
 .coffeescript .javascript,
